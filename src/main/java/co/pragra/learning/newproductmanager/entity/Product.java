@@ -1,9 +1,13 @@
 package co.pragra.learning.newproductmanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
+import java.sql.SQLType;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,13 +17,18 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "VARCHAR(36)")
+    @JdbcTypeCode(SqlTypes.CHAR)
     private UUID id;
 
+    @Column(unique = true)
     private String name;
-    private String desc;
+
+    @JsonProperty("desc")
+    private String description;
     private double cost;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany()
     @JoinColumn(name = "product_id")
     private List<Review> reviews;
 

@@ -1,12 +1,13 @@
 spring:
   datasource:
-    url: jdbc:h2:./appdb
-    username: sa
-    password:
+    url: jdbc:mysql://localhost:3306/appdb
+    username: appuser
+    password: appuser
+    driver-class-name: com.mysql.cj.jdbc.Driver
   h2:
     console:
-      enabled: true
+      enabled: false
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate

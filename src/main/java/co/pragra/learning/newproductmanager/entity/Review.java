@@ -1,10 +1,12 @@
 package co.pragra.learning.newproductmanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
+
 @Data
+@Entity
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,7 +14,11 @@ public class Review {
 
     private String reviews;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private User user;
+
+    @ManyToOne
+    @JsonIgnore
+    private Product product;
 
 }
